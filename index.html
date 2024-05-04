@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Framework dos Guri</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            overflow:hidden;
+        }
+    </style>
+</head>
+<body>
+    
+    <script src="scripts/Player.js"></script>
+    <script src="scripts/object.js"></script>
+    <script src="scripts/keybindings.js"></script>
+    <script src="scripts/geometry.js"></script>
+    <script>
+        var canvas = document.createElement("canvas");
+        var context = canvas.getContext("2d");
+        document.body.appendChild(canvas);
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        var FPS = 30;
+        var timer = setInterval(loop, 1000/FPS)
+
+        var player = new Player(canvas.width/2-40,canvas.height/2-40,80,80,"Sprites/taxi.png",[87,83,65,68],5)
+
+        function loop()
+        {   context.fillStyle = "white"
+            context.fillRect(0,0,canvas.width,canvas.height)
+
+            player.update()
+        }
+
+    </script>
+</body>
+</html>
