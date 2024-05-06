@@ -32,15 +32,44 @@
         var FPS = 30;
         var timer = setInterval(loop, 1000/FPS)
 
-        var player = new Player(canvas.width/2-40,canvas.height/2-40,80,80,"Sprites/taxi.png",[87,83,65,68],5)
+        //new Player(x,y,width,height,img,speed,type,radius)
+        var player = new Player(500,500,80,80,"Sprites/taxi.png",5,'square',40)
+        var keys = []
+            //keybinding
+            document.addEventListener("keydown", keydown)
+            document.addEventListener("keyup", keyup)
+
+            function keydown(Event)
+            {   
+                keys[Event.keyCode] = true
+            }
+
+            function keyup(Event)
+            {
+                keys[Event.keyCode] = false
+            }
+            //
+
 
         function loop()
-        {   context.fillStyle = "white"
+        {   context.fillStyle = "black"
             context.fillRect(0,0,canvas.width,canvas.height)
 
-            player.update()
+            player.draw()
+            
+            if(keys[87])
+            {   player.moveAxis(0,-5)
+            }
+            if(keys[83])
+            {   player.moveAxis(0,5)
+            }
+            if(keys[65])
+            {   player.moveAxis(-5,0)
+            }
+            if(keys[68])
+            {   player.moveAxis(5,0)
+            }
         }
-
     </script>
 </body>
 </html>
