@@ -52,7 +52,7 @@ class Circle{
     draw(){
         context.strokeStyle = "white";
         context.beginPath();
-        context.arc(this.points[0].x+this.radius, this.points[0].y+this.radius, this.radius, 0, Math.PI*2, true);
+        context.arc(this.points[0].x+this.radius/2, this.points[0].y+this.radius/2, this.radius/2, 0, Math.PI*2, true);
         context.closePath();
         context.stroke();
     }

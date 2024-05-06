@@ -32,22 +32,23 @@
         var FPS = 30;
         var timer = setInterval(loop, 1000/FPS)
 
-        //new Player(x,y,width,height,img,speed,type,radius,gravity)
-        var player = new Player(500,500,80,80,"Sprites/taxi.png",5,'circle',40,gravity)
+                    //new Player(x,y,width,height,img,speed,type,gravity)
+        var player = new Player(500,500,80,80,"Sprites/taxi.png",5,'circle')
             
             //keybinding
             var keys = []
             document.addEventListener("keydown", keydown)
             document.addEventListener("keyup", keyup)
 
-            function keydown(Event)
+            function keydown(event)
             {   
-                keys[Event.keyCode] = true
+                keys[event.keyCode] = true
+                // console.log(event.keyCode)
             }
 
-            function keyup(Event)
+            function keyup(event)
             {
-                keys[Event.keyCode] = false
+                keys[event.keyCode] = false
             }
             //
 
@@ -59,16 +60,19 @@
             player.update();
             
             if(keys[87])
-            {   player.moveAxis(0,-5)
+            {   player.moveAxis(0,-1)
             }
             if(keys[83])
-            {   player.moveAxis(0,5)
+            {   player.moveAxis(0,1)
             }
             if(keys[65])
-            {   player.moveAxis(-5,0)
+            {   player.moveAxis(-1,0)
             }
             if(keys[68])
-            {   player.moveAxis(5,0)
+            {   player.moveAxis(1,0)
+            }
+            if(keys[32])
+            {   player.jump(20)
             }
         }
     </script>
