@@ -36,6 +36,7 @@ class Player{
     }
     update()
     {   
+        this.draw();
         this.gravity();
     }
 }
