@@ -16,7 +16,7 @@ class Player{
                                         new Point(x-this.width/2, y+this.height/2)
                                        ]);
         }
-        if(type.toLowerCase() == 'circle')  this.hitbox = new Circle(x-this.width/2,y-this.height/2,width);
+        if(type.toLowerCase() == 'circle')  this.hitbox = new Circle(x-this.width/2,y-this.width/2,width);
     }
 
     moveAxis(dx,dy)
