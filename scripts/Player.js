@@ -10,7 +10,7 @@ class Player{
         (gravity != undefined ? this.gravity = gravity : this.gravity = function(){});
        
         if(type.toLowerCase() == 'square'){
-            this.hitbox = new Polygono([new Point(x-this.width/2,y-this.height/2),
+            this.hitbox = new Polygon([new Point(x-this.width/2,y-this.height/2),
                                         new Point(x+this.width/2, y-this.height/2),
                                         new Point(x+this.width/2, y+this.height/2),
                                         new Point(x-this.width/2, y+this.height/2)

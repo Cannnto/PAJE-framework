@@ -20,7 +20,7 @@ class Point
     }
 }
 
-class Polygono
+class Polygon
 {
     constructor(Points,radius)
     {   this.points = Points
