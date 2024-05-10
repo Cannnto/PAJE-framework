@@ -14,7 +14,7 @@ class Player{
                                         new Point(x+this.width/2, y-this.height/2),
                                         new Point(x+this.width/2, y+this.height/2),
                                         new Point(x-this.width/2, y+this.height/2)
-                                       ]);
+                                       ], undefined, polyPolyCollide);
         }
         if(type.toLowerCase() == 'circle')  this.hitbox = new Circle(x-this.width/2,y-this.width/2,width);
     }
@@ -38,6 +38,7 @@ class Player{
     {   
         this.draw();
         this.gravity();
+        this.hitbox.collide(player, square);
     }
 }
 function gravity(){

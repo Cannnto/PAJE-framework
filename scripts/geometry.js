@@ -22,9 +22,10 @@ class Point
 
 class Polygon
 {
-    constructor(Points,radius)
-    {   this.points = Points
-        this.radius = radius
+    constructor(points,radius,collision)
+    {   this.points = points;
+        this.radius = radius;
+        (collision != undefined ? this.collide = collision : this.collide = function(){});
     }
 
     draw()
@@ -37,11 +38,6 @@ class Polygon
             }
             context.closePath();
             context.stroke();
-    }
-
-    collide()
-    {
-
     }
 }
 class Circle{
@@ -70,13 +66,13 @@ function lineCollide(x1, y1, x2, y2, x3, y3, x4, y4) {
 
 function polyLine(poly, x1, y1, x2, y2) {
     var next = 0;
-    for (let current = 0; current < poly.hitbox.length; current++) {
+    for (let current = 0; current < poly.hitbox.points.length; current++) {
         next = current + 1;
-        if (next == poly.hitbox.length) next = 0;
-        var x3 = poly.hitbox[current].x;
-        var y3 = poly.hitbox[current].y;
-        var x4 = poly.hitbox[next].x;
-        var y4 = poly.hitbox[next].y;
+        if (next == poly.hitbox.points.length) next = 0;
+        var x3 = poly.hitbox.points[current].x;
+        var y3 = poly.hitbox.points[current].y;
+        var x4 = poly.hitbox.points[next].x;
+        var y4 = poly.hitbox.points[next].y;
         var hit = lineCollide(x1, y1, x2, y2, x3, y3, x4, y4);
         if (hit) {
             return true;
@@ -87,15 +83,16 @@ function polyLine(poly, x1, y1, x2, y2) {
 
 function polyPolyCollide(poly1, poly2) {
     var next = 0;
-    for (let current = 0; current < poly1.hitbox.length; current++) {
+    for (let current = 0; current < poly1.hitbox.points.length; current++) {
         next = current + 1;
-        if (next == poly1.hitbox.length) next = 0;
-        var vc = poly1.hitbox[current];    // c for "current"
-        var vn = poly1.hitbox[next];       // n for "next"
+        if (next == poly1.hitbox.points.length) next = 0;
+        var vc = poly1.hitbox.points[current];    // c for "current"
+        var vn = poly1.hitbox.points[next];       // n for "next"
         var collision = polyLine(poly2, vc.x,vc.y,vn.x,vn.y);
         if (collision) {
             return true;
             }
         }
+        console.log(collision);
         return false;
 }
