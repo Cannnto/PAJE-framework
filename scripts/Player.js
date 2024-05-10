@@ -1,23 +1,9 @@
-class Player{
-    constructor(x,y,width,height,sprite,speed,type,gravity)
+class Player extends Obstacle{
+    constructor(x,y,width,height,type,speed,sprite,gravity)
     {
-        this.width = width;
-        this.height = height;
-        this.sprite = new Image();
-        this.sprite.src = sprite;
+        super(x,y,width,height,type,sprite,gravity);
         this.speed = speed;
-        this.gravityAcel = 0;
         this.projec = [];
-        (gravity != undefined ? this.gravity = gravity : this.gravity = function(){});
-       
-        if(type.toLowerCase() == 'square'){
-            this.hitbox = new Polygon([new Point(x-this.width/2,y-this.height/2),
-                                        new Point(x+this.width/2, y-this.height/2),
-                                        new Point(x+this.width/2, y+this.height/2),
-                                        new Point(x-this.width/2, y+this.height/2)
-                                       ], undefined, polyPolyCollide);
-        }
-        if(type.toLowerCase() == 'circle')  this.hitbox = new Circle(x-this.width/2,y-this.width/2,width);
     }
 
     moveAxis(dx,dy)
@@ -36,12 +22,10 @@ class Player{
     draw()
     {   
         this.hitbox.draw();
-        this.x = this.hitbox.points[0].x;
-        this.y = this.hitbox.points[0].y;
     }
     update()
     {   
-        this.draw();
+        super.draw();
         this.gravity();
         // this.hitbox.collide(player, square);
 
@@ -57,8 +41,4 @@ class Player{
                 }
         }
     }
-}
-function gravity(){
-    this.gravityAcel+=1;
-    for(var i = 0; i<this.hitbox.points.length; i++) this.hitbox.points[i].translate(0,this.gravityAcel);
 }

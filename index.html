@@ -14,8 +14,8 @@
     </style>
 </head>
 <body>
-    <script src="scripts/Player.js"></script>
     <script src="scripts/object.js"></script>
+    <script src="scripts/Player.js"></script>
     <script src="scripts/keybindings.js"></script>
     <script src="scripts/geometry.js"></script>
 
@@ -31,8 +31,8 @@
         var timer = setInterval(loop, 1000/FPS)
 
                     //new Player(x,y,width,height,img,speed,type,gravity)
-        var player = new Player(canvas.width/2,canvas.height/2,80,80,"Sprites/taxi.png",5,'square');
-        var square = new Obstacle(50,50,80,80,"Sprites/taxi.png", "square");
+        var player = new Player(canvas.width/2,canvas.height/2,80,80,'square',5,"Sprites/taxi.png");
+        var square = new Obstacle(50,50,80,80,"square","Sprites/taxi.png");
             
             //keybinding
             var keys = []
@@ -56,7 +56,7 @@
             context.fillRect(0,0,canvas.width,canvas.height)
 
             player.update();
-            square.draw();
+            square.update();
             
             if(keys[87])
             {   player.moveAxis(0,-1);

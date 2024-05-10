@@ -1,10 +1,12 @@
 class Obstacle {
-    constructor (x,y,width,height,sprite,type)
+    constructor (x,y,width,height,type,sprite,gravity)
     {
         this.width = width;
         this.height = height;
         this.sprite = new Image();
         this.sprite.src = sprite;
+        this.gravityAcel = 0;
+        (gravity != undefined ? this.gravity = gravity : this.gravity = function(){});
 
         if(type.toLowerCase() == 'square'){
             this.hitbox = new Polygon([new Point(x-this.width/2,y-this.height/2),
@@ -19,5 +21,15 @@ class Obstacle {
     draw()
     {
         this.hitbox.draw();
+        this.x = this.hitbox.points[0].x;
+        this.y = this.hitbox.points[0].y;
     }
+    update(){
+        this.draw();
+        this.gravity()
+    }
+}
+function gravity(){
+    this.gravityAcel+=1;
+    for(var i = 0; i<this.hitbox.points.length; i++) this.hitbox.points[i].translate(0,this.gravityAcel);
 }
