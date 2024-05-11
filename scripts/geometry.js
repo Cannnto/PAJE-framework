@@ -93,6 +93,6 @@ function polyPolyCollide(poly1, poly2) {
             return true;
             }
         }
-        // console.log(collision);
+        console.log(collision);
         return false;
 }
