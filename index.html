@@ -17,11 +17,13 @@
     </style>
 </head>
 <body>
-    
-    <script src="scripts/Player.js"></script>
+
+    <script src="scripts/index.js"></script>
+    <script src="scripts/point.js"></script>
+    <script src="scripts/hitbox.js"></script>
     <script src="scripts/object.js"></script>
-    <script src="scripts/keybindings.js"></script>
-    <script src="scripts/geometry.js"></script>
+    <script src="scripts/teste.js"></script>
+
     <script>
         var canvas = document.createElement("canvas");
         var context = canvas.getContext("2d");
@@ -29,16 +31,47 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
+        var object = [new Object(0,0,50,50,"polygon",true,[87,83,68,65,1],0,0,5), new Object(100,0,50,50,"polygon",true,[],0,90,0)]
+        
+        var keys = []
+        document.addEventListener("keydown", keydown)
+        document.addEventListener("keyup", keyup)
+
+        function keydown(event)
+        {   
+            keys[event.keyCode] = true
+        }
+
+        function keyup(event)
+        {
+            keys[event.keyCode] = false
+        }
+
         var FPS = 30;
         var timer = setInterval(loop, 1000/FPS)
 
-        var player = new Player(canvas.width/2-40,canvas.height/2-40,80,80,"Sprites/taxi.png",[87,83,65,68],5)
-
         function loop()
-        {   context.fillStyle = "white"
+        {   context.fillStyle = "black"
             context.fillRect(0,0,canvas.width,canvas.height)
 
-            player.update()
+            var n = 0
+            var colliders = []
+
+            for(var i = 0 ; i < object.length; i++)
+            {   
+                if(object[i].collision == true)
+                {   
+                    var index = object.indexOf(object[i])
+                    colliders[n] = object[index]
+                    n++
+                }
+
+            }
+
+            for(var i=0; i < object.length; i++)
+            {
+                object[i].draw(colliders,object[i],keys)
+            }
         }
 
     </script>
