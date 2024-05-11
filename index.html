@@ -31,7 +31,10 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        var object = [new Object(0,0,50,50,"polygon",true,[87,83,68,65,1],0,0,5), new Object(100,0,50,50,"polygon",true,[],0,90,0)]
+        //x,y,width,heigth,shape,collision,keys,gravidade,angle,speed
+        var object = [new Object(0,0,50,50,"polygon",true,[87,83,68,65,1],0,0,5), new Object(100,0,50,50,"polygon",true,[],0,90,0)
+        ,new Object(200,0,50,50,"polygon",true,[],0,0,0)
+        ]
         
         var keys = []
         document.addEventListener("keydown", keydown)
@@ -61,12 +64,14 @@
             {   
                 if(object[i].collision == true)
                 {   
+                    
                     var index = object.indexOf(object[i])
                     colliders[n] = object[index]
                     n++
                 }
 
             }
+
 
             for(var i=0; i < object.length; i++)
             {

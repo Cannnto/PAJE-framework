@@ -29,11 +29,13 @@ class Object{
 
     draw(objects,object,keys)
     {   
-        
         for(var i = 0 ; i < objects.length; i++)
         {   
-            var index = objects.indexOf(object)
-            objects.splice(index,1)
+            if(objects.indexOf(object) != -1)
+            {
+                var index = objects.indexOf(object)
+                objects.splice(index,1)
+            }
         }
         this.keyboard(keys)
         for(var i = 0; i < objects.length; i++)
