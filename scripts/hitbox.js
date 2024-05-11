@@ -23,7 +23,13 @@ class Polygon{
 
     collide(other)
     {   
-        (other.shape == "polygon" ? this.collide_polygon(other) : this.collide_circle(other))
+        if(other.shape == "polygon")
+        {
+            return this.collide_polygon(other)
+        }
+        else{
+            return this.collide_circle(other)
+        }
     }
 
     collide_polygon(other)
@@ -45,7 +51,7 @@ class Polygon{
                     let uB = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
     
                     if(uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1)
-                    {               console.log("oi")
+                    {
                         return true
                     }
                 }
@@ -80,7 +86,13 @@ class Circle{
 
     collide(other)
     {   
-        (other.shape == "polygon" ? this.collide_polygon(other) : this.collide_circle(other))
+        if(other.shape == "polygon")
+        {
+            return this.collide_polygon(other)
+        }
+        else{
+            return this.collide_circle(other)
+        }
     }
 
     collide_polygon(other)
@@ -103,7 +115,6 @@ class Circle{
         var distance = Math.sqrt((distX*distX) + (distY*distY));
 
         if (distance <= this.radius+other.width/2) {
-            console.log("oi")
             return true;
         }
 
