@@ -9,19 +9,17 @@
         *{
             margin: 0;
             padding: 0;
-        }
-
-        body{
             overflow:hidden;
         }
     </style>
 </head>
 <body>
-    
-    <script src="scripts/Player.js"></script>
     <script src="scripts/object.js"></script>
+    <script src="scripts/Player.js"></script>
     <script src="scripts/keybindings.js"></script>
     <script src="scripts/geometry.js"></script>
+
+    <script src="scripts/projectile.js"></script>
     <script>
         var canvas = document.createElement("canvas");
         var context = canvas.getContext("2d");
@@ -33,8 +31,8 @@
         var timer = setInterval(loop, 1000/FPS)
 
                     //new Player(x,y,width,height,img,speed,type,gravity)
-        var player = new Player(canvas.width/2,canvas.height/2,80,80,"Sprites/taxi.png",5,'square');
-        var square = new Obstacle(50,50,80,80,"Sprites/taxi.png", "square");
+        var player = new Player(canvas.width/2,canvas.height/2,80,80,'square',5,"Sprites/taxi.png");
+        var square = new Obstacle(50,50,80,80,"square","Sprites/taxi.png");
             
             //keybinding
             var keys = []
@@ -44,7 +42,7 @@
             function keydown(event)
             {   
                 keys[event.keyCode] = true
-                // console.log(event.keyCode)
+                console.log(event.keyCode)
             }
 
             function keyup(event)
@@ -58,22 +56,26 @@
             context.fillRect(0,0,canvas.width,canvas.height)
 
             player.update();
-            square.draw();
+            square.update();
             
             if(keys[87])
-            {   player.moveAxis(0,-1)
+            {   player.moveAxis(0,-1);
             }
             if(keys[83])
-            {   player.moveAxis(0,1)
+            {   player.moveAxis(0,1);
             }
             if(keys[65])
-            {   player.moveAxis(-1,0)
+            {   player.moveAxis(-1,0);
             }
             if(keys[68])
-            {   player.moveAxis(1,0)
+            {   player.moveAxis(1,0);
             }
             if(keys[32])
-            {   player.jump(20)
+            {   player.jump(20);
+            }
+
+            if(keys[82]){
+                player.fire(30,5,15)
             }
         }
     </script>
