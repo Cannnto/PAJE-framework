@@ -14,10 +14,12 @@
     </style>
 </head>
 <body>
+    <script src="scripts/gameSettings.js"></script>
     <script src="scripts/object.js"></script>
     <script src="scripts/Player.js"></script>
     <script src="scripts/keybindings.js"></script>
     <script src="scripts/geometry.js"></script>
+    <script src="scripts/Enemy.js"></script>
 
     <script src="scripts/projectile.js"></script>
     <script>
@@ -27,33 +29,16 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        var FPS = 30;
-        var timer = setInterval(loop, 1000/FPS)
-
-                    //new Player(x,y,width,height,img,speed,type,gravity)
+        
+        //new Player(x,y,width,height,img,speed,type,gravity)
         var player = new Player(canvas.width/2,canvas.height/2,80,80,'square',5,"Sprites/taxi.png");
         var square = new Obstacle(50,50,80,80,"square","Sprites/taxi.png");
-            
-            //keybinding
-            var keys = []
-            document.addEventListener("keydown", keydown)
-            document.addEventListener("keyup", keyup)
-
-            function keydown(event)
-            {   
-                keys[event.keyCode] = true
-                console.log(event.keyCode)
-            }
-
-            function keyup(event)
-            {
-                keys[event.keyCode] = false
-            }
-            //
-
+        
+        LoadGame(loop,30);
+        
         function loop()
-        {   context.fillStyle = "black"
-            context.fillRect(0,0,canvas.width,canvas.height)
+        {   context.fillStyle = "black";
+            context.fillRect(0,0,canvas.width,canvas.height);
 
             player.update();
             square.update();
@@ -73,9 +58,9 @@
             if(keys[32])
             {   player.jump(20);
             }
-
             if(keys[82]){
-                player.fire(30,5,15)
+                //player.fire(width,height,velocity);
+                player.fire(30,5,15);
             }
         }
     </script>

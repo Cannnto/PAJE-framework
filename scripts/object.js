@@ -26,7 +26,7 @@ class Obstacle {
     }
     update(){
         this.draw();
-        this.gravity()
+        this.gravity();
     }
 }
 function gravity(){
