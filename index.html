@@ -14,12 +14,13 @@
     </style>
 </head>
 <body>
-    <script src="scripts/gameSettings.js"></script>
     <script src="scripts/object.js"></script>
     <script src="scripts/Player.js"></script>
     <script src="scripts/keybindings.js"></script>
     <script src="scripts/geometry.js"></script>
     <script src="scripts/Enemy.js"></script>
+    <script src="scripts/gameSettings.js"></script>
+    <script src="scripts/paralax.js"></script>
 
     <script src="scripts/projectile.js"></script>
     <script>
@@ -31,18 +32,24 @@
 
         
         //new Player(x,y,width,height,img,speed,type,gravity)
-        var player = new Player(canvas.width/2,canvas.height/2,80,80,'square',5,"Sprites/taxi.png");
-        var square = new Obstacle(50,50,80,80,"square","Sprites/taxi.png");
-        
+        var player = new Player(canvas.width/2,canvas.height/2,80,40,'square',5,"Sprites/taxi.png");
+        var square = new Obstacle(50,50,80,80,"circle","Sprites/taxi.png");
+        var gameOptions = new GameSettings(settings = {paralaxVelocity:2, paralaxSize:1});
+
+
         LoadGame(loop,30);
         
+
+
+
         function loop()
         {   context.fillStyle = "black";
             context.fillRect(0,0,canvas.width,canvas.height);
 
             player.update();
             square.update();
-            
+            gameOptions.paralax();
+
             if(keys[87])
             {   player.moveAxis(0,-1);
             }
@@ -60,7 +67,7 @@
             }
             if(keys[82]){
                 //player.fire(width,height,velocity);
-                player.fire(30,5,15);
+                player.fire(10,5,25);
             }
         }
     </script>

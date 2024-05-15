@@ -4,7 +4,7 @@ class Obstacle {
         this.width = width;
         this.height = height;
         this.sprite = new Image();
-        this.sprite.src = sprite;
+        if(sprite!=undefined)this.sprite.src = sprite;
         this.gravityAcel = 0;
         (gravity != undefined ? this.gravity = gravity : this.gravity = function(){});
 
