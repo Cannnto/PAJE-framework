@@ -22,12 +22,12 @@ class Point
 
 class Polygon
 {
-    constructor(points,radius,collision)
+    constructor(points,collision,objs)
     {   this.points = points;
-        this.radius = radius;
-        (collision != undefined ? this.collide = collision : this.collide = function(){});
+        this.collision = collision || function(){};
+        this.objs = objs
     }
-
+    
     draw()
     {   
             context.strokeStyle = "white";
@@ -38,6 +38,33 @@ class Polygon
             }
             context.closePath();
             context.stroke();
+
+    }
+    collide(){
+        for(let i=0;i<(this.objs.length-1);i++){
+            this.collision(this.objs[0],this.objs[i+1])
+        }
+    }
+}
+class Line{
+    constructor(points,collision){
+        this.points = points;
+        this.collision = collision || function(){};
+    }
+    draw(){
+        context.strokeStyle = "white";
+        context.beginPath();
+        context.moveTo(this.points[0].x, this.points[0].y);
+        for (let point = 1; point < this.points.length; point++) {
+            context.lineTo(this.points[point].x, this.points[point].y)
+        }
+        context.closePath();
+        context.stroke();
+
+        // this.colisao();
+    }
+    colisao(){
+        // (this.collision(player,this.points[0].x,this.points[0].y,this.points[1].x,this.points[1].y))
     }
 }
 class Circle{
@@ -90,9 +117,9 @@ function polyPolyCollide(poly1, poly2) {
         var vn = poly1.hitbox.points[next];       // n for "next"
         var collision = polyLine(poly2, vc.x,vc.y,vn.x,vn.y);
         if (collision) {
+            console.log(true)
             return true;
             }
         }
-        console.log(collision);
         return false;
 }

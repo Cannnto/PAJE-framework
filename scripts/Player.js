@@ -1,7 +1,8 @@
 class Player extends Obstacle{
-    constructor(x,y,width,height,type,speed,sprite,gravity)
+    constructor(x,y,width,height,type,speed,sprite,gravity,objs)
     {
-        super(x,y,width,height,type,sprite,gravity);
+        super(x,y,width,height,type,sprite,gravity,objs);
+        this.objs = objs || false
         this.speed = speed;
         this.projec = [];
     }
@@ -23,6 +24,7 @@ class Player extends Obstacle{
     update()
     {   
         super.draw();
+        if(this.objs!=false)super.collide();
         this.gravity();
         // this.hitbox.collide(player, square);
 
