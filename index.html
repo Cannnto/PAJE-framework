@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horror Game</title>
+</head>
+<body style="margin: 0; padding: 0; box-sizing: border-box; overflow: hidden; ">
+    <script src="player.js"></script>
+    <script>
+        var canvas = document.createElement("canvas");
+        var context = canvas.getContext("2d");
+        document.body.appendChild(canvas);
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        
+        var player = new Player()
+        
+        var teclas = [];
+        function onKeyDown(event)
+        {	teclas[event.keyCode] = true;
+            console.log(event.keyCode)
+        }
+
+        function onKeyUp(event)
+        {	teclas[event.keyCode] = false;
+        }
+
+        document.addEventListener("keydown", onKeyDown);
+        document.addEventListener("keyup", onKeyUp);
+
+        var FPS = 30;
+        var timer = setInterval(loop, 1000/FPS);
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("keydown", gameKeys);
+
+        
+        function onMouseMove(event)
+        {	event.preventDefault();
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+        }
+
+
+        function loop(){
+            context.fillStyle = 'black'
+            context.fillRect(0,0,canvas.width,canvas.height)
+
+            player.draw()
+
+            if(teclas[87]){
+                player.translate(0,-3)
+            }
+            if(teclas[83]){
+                player.translate(0,3)
+            }
+            if(teclas[65]){
+                player.translate(-3,0)
+            }
+            if(teclas[68]){
+                player.translate(3,0)
+            }
+        }
+
+    </script>
+</body>
+</html>
