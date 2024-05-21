@@ -32,9 +32,26 @@
         canvas.height = window.innerHeight;
 
         //x,y,width,heigth,shape,collision,keys,gravidade,angle,speed
-        var object = [new Object(0,0,50,50,"polygon",true,[87,83,68,65,1],0,0,5), new Object(100,0,50,50,"polygon",true,[],0,90,0)
+
+        var object = [new Object(0,0,50,50,"polygon",true,[87,83,68,65,1],0,0,5)
+        ,new Object(100,0,50,50,"polygon",true,[],0,90,0)
         ,new Object(200,0,50,50,"polygon",true,[],0,0,0)
         ]
+
+        var n = 0
+        var colliders = []
+        var index = 0
+  
+        for(var i = 0 ; i < object.length; i++)
+        {   
+            if(object[i].collision == true)
+            {   
+                
+                var index = object.indexOf(object[i])
+                colliders[n] = object[index]
+                n++
+            }
+        }
         
         var keys = []
         document.addEventListener("keydown", keydown)
@@ -50,6 +67,10 @@
             keys[event.keyCode] = false
         }
 
+        const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+        });
+
         var FPS = 30;
         var timer = setInterval(loop, 1000/FPS)
 
@@ -57,26 +78,7 @@
         {   context.fillStyle = "black"
             context.fillRect(0,0,canvas.width,canvas.height)
 
-            var n = 0
-            var colliders = []
-
-            for(var i = 0 ; i < object.length; i++)
-            {   
-                if(object[i].collision == true)
-                {   
-                    
-                    var index = object.indexOf(object[i])
-                    colliders[n] = object[index]
-                    n++
-                }
-
-            }
-
-
-            for(var i=0; i < object.length; i++)
-            {
-                object[i].draw(colliders,object[i],keys)
-            }
+            updateGame(colliders,object)
         }
 
     </script>

@@ -21,19 +21,30 @@ class Polygon{
         }
     }
 
+    center()
+	{	let center = new point(0, 0);
+		for (let point of this.points)
+		{	center.x += point.x;
+			center.y += point.y;
+		}
+		center.x /= this.points.length;
+		center.y /= this.points.length;
+		return(center);
+	}
+
     collide(other)
-    {   
+    {   //25 125 225
         if(other.shape == "polygon")
-        {
-            return this.collide_polygon(other)
-        }
-        else{
-            return this.collide_circle(other)
-        }
+            {
+                return this.collide_polygon(other)
+            }
+            else{
+                return this.collide_circle(other)
+            }
     }
 
     collide_polygon(other)
-    {
+    {   
         for(let i=0; i < this.points.length; i++)
             {   let x1 = this.points[i].x;
                 let y1 = this.points[i].y;
@@ -56,7 +67,7 @@ class Polygon{
                     }
                 }
             }
-            return false
+        return false
     }
 
     collide_circle(other)

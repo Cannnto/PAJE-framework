@@ -27,23 +27,36 @@ class Object{
 
     }
 
-    draw(objects,object,keys)
+    update(colliders,keys)
     {   
-        for(var i = 0 ; i < objects.length; i++)
-        {   
-            if(objects.indexOf(object) != -1)
-            {
-                var index = objects.indexOf(object)
-                objects.splice(index,1)
-            }
-        }
-        this.keyboard(keys)
-        for(var i = 0; i < objects.length; i++)
-        {   
-            console.log(this.hitbox.collide(objects[i]))
+        this.hitbox.draw()
+
+        if(!this.collide(colliders)){
+            this.keyboard(keys)
         }
 
-        this.hitbox.draw()
+
+    }
+
+    collide(colliders)
+    {   var d = Date.now()
+        if(colliders.indexOf(this) != -1)
+        {
+            var index = colliders.indexOf(this)
+            colliders.splice(index,1)
+        }
+        //this.keyboard(keys)
+        for(var i = 0; i < colliders.length; i++)
+        {   
+            if(colliders[i].hitbox.center().x-25 < this.hitbox.center().x+50  && colliders[i].hitbox.center().x+25 > this.hitbox.center().x-50 && colliders[i].hitbox.center().y-25 < this.hitbox.center().y+50  && colliders[i].hitbox.center().y+25 > this.hitbox.center().y-50)
+            {   
+                console.log(this.hitbox.collide(colliders[i]))
+            }   
+        }
+
+        colliders.push(this)
+
+        console.log(d+" - "+Date.now())
     }
 
     move(x,y)
