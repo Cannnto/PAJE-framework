@@ -1,40 +1,59 @@
-class keybinding{
-    constructor(teclas)
-    {   this.teclas = teclas
-    }
-
-    pressed()
-    {
-        if(teclas[this.teclas[0]])
-        {
-            player.move(0,-1)
-        }
-        if(teclas[this.teclas[1]])
-        {
-            player.move(0,1)
-        }
-        if(teclas[this.teclas[2]])
-        {
-            player.move(-1,0)
-        }
-        if(teclas[this.teclas[3]])
-        {
-            player.move(1,0)
-        }
-    }
+/* function pressedKey(event) {
+    player.key[event.keyCode] = true;
 }
 
-var teclas = []
+function upKey(event) {
+    player.key[event.keyCode] = false;
+} */
 
-document.addEventListener("keydown", keydown)
-document.addEventListener("keyup", keyup)
-
-function keydown(Event)
-{   
-    teclas[Event.keyCode] = true
+function pressedKey(event) {
+    switch (event.code) {
+        case "Space":
+            player.keys["jump"] = true;
+            break;
+        case "KeyA":
+            player.keys["left"] = true;
+            break;
+        case "KeyD":
+            player.keys["right"] = true;
+            break;
+        case "KeyR":
+            player.keys["shoot"] = true;
+            break;
+        case "KeyF":
+            player.keys["hook"] = true;
+            break;
+        case "Digit1":
+            player.keys["switch1"] = true;
+            break;
+        case "Digit2":
+            player.keys["switch2"] = true;
+            break;             
+    }
 }
-
-function keyup(Event)
-{
-    teclas[Event.keyCode] = false
+    
+function upKey(event) {
+    switch (event.code) {
+        case "Space":
+            player.keys["jump"] = false;
+            break;
+        case "KeyA":
+            player.keys["left"] = false;
+            break;
+        case "KeyD":
+            player.keys["right"] = false;
+            break;
+        case "KeyR":
+            player.keys["shoot"] = false;
+            break;
+        case "KeyF":
+            player.keys["hook"] = false;
+            break;
+        case "Digit1":
+            player.keys["switch1"] = false;
+            break;
+        case "Digit2":
+            player.keys["switch2"] = false;
+            break;             
+    }
 }

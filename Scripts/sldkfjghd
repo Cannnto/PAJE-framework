@@ -1,0 +1,4 @@
+{
+    keyA: player.move(180,6);
+    
+}

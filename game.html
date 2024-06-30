@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platformer</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            overflow:hidden;
+        }
+    </style>
+</head>
+<body>
+    <script src="scripts/object.js"></script>
+    <script src="scripts/player.js"></script>
+    <script src="scripts/weapon.js"></script>
+    <script src="scripts/keybindings.js"></script>
+    <script src="scripts/collision.js"></script>
+    <script src="scripts/geometry.js"></script>
+    <script src="scripts/projectile.js"></script>
+    <script src="scripts/gravity.js"></script>
+    <script src="scripts/hook.js"></script>
+    <script src="scripts/HUD.js"></script>
+    <script src="scripts/world.js"></script>
+    <script>
+        var canvas = document.createElement("canvas");
+        var context = canvas.getContext("2d");
+        var hud = new HUD();
+        document.body.appendChild(canvas);
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        var FPS = 45;
+        var timer = setInterval(loop, 1000/FPS)
+
+        var player = new Player(canvas.width/2,canvas.height/4,"white",canvas.width/20,canvas.height/15, gravityFunc, playerCollide);
+        var floor = new Obstacle(canvas.width/2,canvas.height-100,"white",canvas.width,200);
+        var platform1 = new Obstacle(canvas.width/2, 550, "white", 200, 50);
+        var platform2 = new Obstacle(50, 350, "white", 50, 500);
+        var platform3 = new Obstacle(1200, 350, "white", 50, 500);
+        var platform4 = new Obstacle(canvas.width/2, 50, "white", canvas.width, 50);
+        var platform5 = new Obstacle(1000, 250, "blue", 70, 80);
+        var platform6 = new Obstacle(250, 250, "blue", 70, 70);
+        var platform7 = new Obstacle(400, 400, "white",150, 50);
+        platform5.rotate(45);
+        platform6.rotate(45);
+        var environment = new World([floor, platform1, platform2, platform3, platform4, platform5, platform6, platform7]);
+            
+        //keybinding
+        document.addEventListener("keydown", pressedKey)
+        document.addEventListener("keyup", upKey)
+
+        var mouseX = 0;
+        var mouseY = 0;
+        document.addEventListener("mousemove", onMouseMove);
+
+        function onMouseMove(event) {
+            event.preventDefault();
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+            return[mouseX, mouseY];
+         }
+
+        var camera = {x:0, y:0} 
+
+        function loop()
+        {   /* camera.x = (canvas.width - player.center.x)/2;
+            camera.y = (canvas.height - player.center.y)/2; */
+            context.fillStyle = "black";
+            context.fillRect(0,0,canvas.width,canvas.height);
+            context.save();
+            context.translate(camera.x, camera.y);
+            //colidiu = playerCollide(environment, player);
+            //console.log(player.groundCheck());
+            floor.update();
+            environment.update();
+            player.update();
+            hud.draw();
+            //for (let i = 0; i < colidiu.length; i++) {
+            //    if (colidiu[i]) {
+            //        console.log(colidiu);
+            //    }
+            //}
+            context.restore();
+        }
+    </script>
+</body>
+</html>
