@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jumper2</title>
+    <link rel="icon" href="imgs/Paje_Pixel.png">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <script src="scripts/GameSettings.js"></script>
+    <script src="scripts/Poly.js"></script>
+    <script src="scripts/Rain.js"></script>
+    <script src="scripts/Camera.js"></script>
+    <script src="scripts/Projectile.js"></script>
+    <script src="scripts/Enemies.js"></script>
+    <script src="scripts/Enemy.js"></script>
+    <script src="scripts/Gun.js"></script>
+    <script src="scripts/Player.js"></script>
+    <script src="scripts/Particle.js"></script>
+    <script src="scripts/Hud.js"></script>
+
+    <script>
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+        document.body.appendChild(canvas);
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+
+        var FPS = 30;
+        LoadGame(loop,FPS);
+
+
+        var floor = new Poly(0,canvas.height*5/6,canvas.width,canvas.height*1/6,null,'stroke',null,'f');
+        var leftFloor = new Poly(-1000,canvas.height*5/6,800,canvas.height*1/6,null,'stroke',null,'lf');
+        var rightFloor = new Poly(canvas.width+200,canvas.height*5/6,800,canvas.height*1/6,null,'stroke',null,'rf');
+
+        var object1 = new Poly(200,canvas.height*4/6,200,20,null,'fill',null,'o');
+        var canvasHitbox = new Poly(0,0,canvas.width,canvas.height);
+        var camera = new Camera();
+        var hud = new Hud();
+        
+        var objs = [floor, leftFloor, rightFloor, object1,camera.hitbox];
+
+
+        var rain = new Rain(objs);
+        var player = new Player(canvas.width/2,canvas.height*4/6,40,90,[floor, leftFloor, rightFloor, object1, camera.hitbox]);
+        var enemy1 = new Enemy(canvas.width/2+100,canvas.height*4/6,50,25);
+        var enemies = new Enemies();
+
+
+        function loop(){
+            ctx.fillStyle = 'rgba(0,0,0)';
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            camera.update();
+            hud.draw();
+            player.update();
+            rain.update();
+            // enemy1.update();
+
+            enemies.iterate();
+
+
+            // console.log(player.gun.ponta)
+
+            floor.draw('rgba(255,255,255');
+            leftFloor.draw('rgba(255,255,255');
+            rightFloor.draw('rgba(255,255,255');
+            object1.draw('rgba(255,255,255');
+            
+
+            if(keys[300]) player.charging(80,10,70,3);
+            if(!keys[300]) player.fire(80,10,70,3);
+
+            
+            if(keys[68] && player.grounded)    player.move(-10,20);
+            if(keys[65] && player.grounded)    player.move(190,20);
+            if(keys[87] && player.grounded)    player.move(-90,25);   
+            if(keys[82]){
+                // camera.die = 0;
+                player.die();
+            } 
+            if(keys[32])    player.jetPackUsing(-90,3);
+            if(!keys[32] || !player.jetPack.fuel.current)
+            {   player.jetPackRestore();
+                player.stopAcel();
+            }
+
+            // if(keys[65] && keys[87]&&player.grounded)    player.move(-120,35);
+            // if(keys[68] && keys[87]&&player.grounded)    player.move(-60,35);
+
+            // if(player.velocity.y)    player.stopAcel();
+            
+
+            // if(keys[71]) player.negativeGravity();
+            // if(!keys[68] && !keys[65] && !keys[87]) 
+            // requestAnimationFrame(loop)
+        }
+
+
+    </script>
+</body>
+</html>
